@@ -1,14 +1,47 @@
 <template>
   <div id="app">
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div> -->
-    <router-view />
+    <header>
+      <span id="logo">Weather in Vue</span>
+      <nav>
+        <router-link to="/home">Home</router-link>
+      </nav>
+    </header>
+    <main class="container">
+      <router-view />
+    </main>
+    <footer>
+      <p>
+        Created with ❤️ by
+        <a href="https://www.josephbartley.dev">
+          Joseph Bartley
+        </a>
+      </p>
+    </footer>
   </div>
 </template>
 
+<script lang="ts">
+import Vue from "vue";
+
+export default Vue.extend({
+  name: "App",
+  metaInfo() {
+    return {
+      title: "Weather in Vue",
+      meta: [
+        {
+          name: "description",
+          content: "Get your current local weather today."
+        }
+      ]
+    };
+  }
+});
+</script>
+
 <style lang="scss">
+@import "./styles/normalize.css";
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -17,16 +50,53 @@
   color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
+* {
+  box-sizing: content-box;
+}
 
-  a {
+header,
+footer {
+  background: #42b983;
+  display: flex;
+  height: 50px;
+  justify-content: space-between;
+
+  #logo {
+    color: white;
+    font-size: 26px;
     font-weight: bold;
-    color: #2c3e50;
+    line-height: 50px;
+    padding: 0 10px;
+  }
 
-    &.router-link-exact-active {
-      color: #42b983;
+  nav {
+    a {
+      font-weight: bold;
+      color: #2c3e50;
+      line-height: 50px;
+      padding: 0 10px;
+      text-decoration: none;
+
+      &.router-link-exact-active {
+        color: white;
+      }
     }
   }
+
+  p {
+    color: white;
+    text-align: center;
+    width: 100%;
+
+    a {
+      color: white;
+    }
+  }
+}
+
+main {
+  background-color: #2c3e50;
+  height: calc(100vh - 132px);
+  padding: 16px;
 }
 </style>
