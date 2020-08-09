@@ -13,45 +13,44 @@
 </template>
 
 <script lang="ts">
+import Vue from "vue";
 import Card from "@/components/Card.vue";
 import WeatherService from "@/services/weather.service";
+import Weather from "@/models/weather.model";
 import { kelvinToFahrenheit } from "@/helpers/conversions";
 
-const weatherService = new WeatherService();
-
-export default {
+export default Vue.extend({
   name: "Home",
   components: {
-    Card
+    Card,
   },
   data() {
     return {
-      weather: {}
+      weather: new Weather(),
     };
   },
-  mounted() {
-    navigator.geolocation.getCurrentPosition((pos: any) => {
-      const coords = pos.coords;
-      weatherService
+  mounted(): void {
+    navigator.geolocation.getCurrentPosition((pos: Position) => {
+      const coords: Coordinates = pos.coords;
+      new WeatherService()
         .currentWeather(coords.latitude, coords.longitude)
-        .then(response => {
+        .then((response) => {
           const weatherData = response.data;
           this.weather = {
             name: weatherData.name,
             datetime: new Date(
               new Date(0).setUTCMilliseconds(weatherData.dt)
             ).toLocaleTimeString(),
-            main: weatherData.weather[0].main,
             description: weatherData.weather[0].description,
             currentTemp:
               kelvinToFahrenheit(weatherData.main.temp).toFixed(0) + "°",
             feelsLike:
-              kelvinToFahrenheit(weatherData.main.feels_like).toFixed(0) + "°"
+              kelvinToFahrenheit(weatherData.main.feels_like).toFixed(0) + "°",
           };
         });
     });
-  }
-};
+  },
+});
 </script>
 
 <style lang="scss" scoped>
