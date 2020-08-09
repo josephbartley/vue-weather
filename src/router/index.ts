@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueMeta from "vue-meta";
-import VueRouter, { RouteConfig, Route, NavigationGuardNext } from "vue-router";
+import VueRouter, { RouteConfig } from "vue-router";
 
 Vue.use(VueRouter);
 Vue.use(VueMeta);
