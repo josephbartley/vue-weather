@@ -14,14 +14,14 @@ const routes: Array<RouteConfig> = [
   {
     path: "*",
     name: "catch-all",
-    redirect: "/home"
-  }
+    redirect: "/home",
+  },
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes
+  routes,
 });
 
 export default router;

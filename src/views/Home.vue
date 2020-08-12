@@ -21,7 +21,9 @@
         <div class="column">
           <div class="row">
             <span class="label">Weather</span>
-            <span class="value">{{ weather.main + " (" + weather.description + ")" }}</span>
+            <span class="value">{{
+              weather.main + " (" + weather.description + ")"
+            }}</span>
           </div>
           <div class="row">
             <span class="label">Wind (Speed and Heading)</span>
@@ -33,9 +35,7 @@
           </div>
         </div>
       </div>
-      <p class="subtitle">
-        Last Updated: {{ weather.datetime }}
-      </p>
+      <p class="subtitle">Last Updated: {{ weather.datetime }}</p>
     </Card>
     <Card v-else>
       No Weather Data Found By Location
@@ -48,7 +48,6 @@ import Vue from "vue";
 import Card from "@/components/Card.vue";
 import WeatherService from "@/services/weather.service";
 import Weather from "@/models/weather.model";
-import { kelvinToFahrenheit } from "@/helpers/conversions";
 
 export default Vue.extend({
   name: "Home",
@@ -69,7 +68,13 @@ export default Vue.extend({
           const weatherData = response.data;
           this.weather = {
             name: weatherData.name,
-            datetime: new Date(weatherData.dt * 1000).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" }),
+            datetime: new Date(weatherData.dt * 1000).toLocaleTimeString(
+              "en-US",
+              {
+                hour: "numeric",
+                minute: "2-digit",
+              }
+            ),
             main: weatherData.weather[0].main,
             description: weatherData.weather[0].description,
             currentTemp: weatherData.main.temp.toFixed(0) + "°",
@@ -77,9 +82,24 @@ export default Vue.extend({
             low: weatherData.main.temp_min.toFixed(0) + "°",
             high: weatherData.main.temp_max.toFixed(0) + "°",
             humidity: weatherData.main.humidity + "%",
-            wind: weatherData.wind.speed.toFixed(0) + "mph  " + weatherData.wind.deg + "°",
-            sunrise: new Date(weatherData.sys.sunrise * 1000).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit"}),
-            sunset: new Date(weatherData.sys.sunset * 1000).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit"}),
+            wind:
+              weatherData.wind.speed.toFixed(0) +
+              "mph  " +
+              weatherData.wind.deg +
+              "°",
+            sunrise: new Date(
+              weatherData.sys.sunrise * 1000
+            ).toLocaleTimeString("en-US", {
+              hour: "numeric",
+              minute: "2-digit",
+            }),
+            sunset: new Date(weatherData.sys.sunset * 1000).toLocaleTimeString(
+              "en-US",
+              {
+                hour: "numeric",
+                minute: "2-digit",
+              }
+            ),
           };
         });
     });

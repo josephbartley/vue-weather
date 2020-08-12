@@ -23,7 +23,7 @@
 <script lang="ts">
 import Vue from "vue";
 
-export default Vue.extend({
+const app = Vue.extend({
   name: "App",
   metaInfo() {
     return {
@@ -37,6 +37,8 @@ export default Vue.extend({
     };
   }
 });
+
+export default app;
 </script>
 
 <style lang="scss">
